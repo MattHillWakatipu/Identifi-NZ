@@ -23,7 +23,7 @@ class UploadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val slideshowViewModel =
-            ViewModelProvider(this).get(UploadViewModel::class.java)
+            ViewModelProvider(this)[UploadViewModel::class.java]
 
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root

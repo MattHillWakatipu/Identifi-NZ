@@ -22,7 +22,7 @@ class VerifyFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View {
         val slideshowViewModel =
-            ViewModelProvider(this).get(VerifyViewModel::class.java)
+            ViewModelProvider(this)[VerifyViewModel::class.java]
 
         _binding = FragmentVerifyBinding.inflate(inflater, container, false)
         val root: View = binding.root
