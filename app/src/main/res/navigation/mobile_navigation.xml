@@ -22,4 +22,9 @@
         android:name="fi.co_de.identifi_nz.ui.upload.UploadFragment"
         android:label="@string/menu_upload"
         tools:layout="@layout/fragment_upload" />
+    <fragment
+        android:id="@+id/nav_verify"
+        android:name="fi.co_de.identifi_nz.ui.verify.VerifyFragment"
+        android:label="@string/menu_verify"
+        tools:layout="@layout/fragment_verify" />
 </navigation>

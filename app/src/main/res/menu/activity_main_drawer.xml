@@ -16,5 +16,9 @@
             android:id="@+id/nav_upload"
             android:icon="@drawable/ic_menu_upload"
             android:title="@string/menu_upload" />
+        <item
+            android:id="@+id/nav_verify"
+            android:icon="@drawable/ic_menu_verify"
+            android:title="@string/menu_verify" />
     </group>
 </menu>
