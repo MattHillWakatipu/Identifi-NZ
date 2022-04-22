@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="fi.co_de.identifi_nz.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_upload"
+        android:name="fi.co_de.identifi_nz.ui.upload.UploadFragment"
+        android:label="@string/menu_upload"
+        tools:layout="@layout/fragment_upload" />
 </navigation>
