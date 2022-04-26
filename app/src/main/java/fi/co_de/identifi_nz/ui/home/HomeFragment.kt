@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import fi.co_de.identifi_nz.R
+import fi.co_de.identifi_nz.data.Datasource
+import fi.co_de.identifi_nz.data.TransactionCardAdapter
 import fi.co_de.identifi_nz.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -32,6 +36,16 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        // Load transactions from datasource
+        val transactionDataset = Datasource().loadRecentTransactions()
+
+        // Create recyclerview adapter
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recent_activity)
+        recyclerView.adapter = TransactionCardAdapter(requireContext(), transactionDataset)
+
+        // recyclerView.setHasFixedSize(true)
+
         return root
     }
 
