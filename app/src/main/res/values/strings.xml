@@ -11,4 +11,8 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_upload">Upload</string>
     <string name="menu_verify">Verify</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="transaction1">Verified by Alice</string>
+    <string name="transaction2">Requested verification</string>
+    <string name="transaction3">Received request</string>
 </resources>
