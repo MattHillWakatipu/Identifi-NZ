@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/item_icon"
+            android:id="@+id/recent_activity_item_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
@@ -23,18 +23,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_transaction_verified" />
+            tools:srcCompat="@drawable/ic_activity_icon_verified" />
 
         <TextView
-            android:id="@+id/item_description"
+            android:id="@+id/recent_activity_item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="?attr/colorSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/item_icon"
-            app:layout_constraintStart_toEndOf="@+id/item_icon"
-            app:layout_constraintTop_toTopOf="@+id/item_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/recent_activity_item_icon"
+            app:layout_constraintStart_toEndOf="@+id/recent_activity_item_icon"
+            app:layout_constraintTop_toTopOf="@+id/recent_activity_item_icon"
             tools:text="Verified by Alice" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

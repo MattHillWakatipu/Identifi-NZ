@@ -20,8 +20,8 @@ class TransactionCardAdapter(
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just an Affirmation object.
     class ItemViewHolder(view: View) : ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.item_description)
-        val imageView: ImageView = view.findViewById(R.id.item_icon)
+        val textView: TextView = view.findViewById(R.id.recent_activity_item_description)
+        val imageView: ImageView = view.findViewById(R.id.recent_activity_item_icon)
     }
 
     /**
@@ -30,7 +30,7 @@ class TransactionCardAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         // Create a new view
         val adapterLayout = LayoutInflater.from(context)
-            .inflate(R.layout.list_item, parent, false)
+            .inflate(R.layout.recent_activity_list_item, parent, false)
 
         return ItemViewHolder(adapterLayout)
     }
