@@ -23,4 +23,6 @@
     <string name="transaction7">Verified by @Bob</string>
     <string name="transaction8">Request sent to @Bob</string>
     <string name="transaction9">Request sent to @Alice</string>
+
+    <string name="profile_name">Matthew</string>
 </resources>
