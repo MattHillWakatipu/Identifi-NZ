@@ -24,5 +24,14 @@
     <string name="transaction8">Request sent to @Bob</string>
     <string name="transaction9">Request sent to @Alice</string>
 
+    <!--  Identity Fragment strings  -->
+    <string name="badge">Badge</string>
+    <string name="bank_account">Bank Account</string>
+    <string name="document">Document</string>
+    <string name="proof_of_address">Proof of Address</string>
+    <string name="wallet_address">Wallet Address</string>
+    <string name="status_pending">Awaiting Verification</string>
+    <string name="status_verified">Fully Verified</string>
+
     <string name="profile_name">Matthew</string>
 </resources>
