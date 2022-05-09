@@ -20,8 +20,8 @@ class TransactionCardAdapter(
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just an Affirmation object.
     class ItemViewHolder(view: View) : ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.item_title)
-        val imageView: ImageView = view.findViewById(R.id.item_image)
+        val textView: TextView = view.findViewById(R.id.item_description)
+        val imageView: ImageView = view.findViewById(R.id.item_icon)
     }
 
     /**
