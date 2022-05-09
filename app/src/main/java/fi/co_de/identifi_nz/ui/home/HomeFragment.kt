@@ -38,8 +38,6 @@ class HomeFragment : Fragment() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.recent_activity_list)
         recyclerView.adapter = TransactionCardAdapter(requireContext(), transactionDataset)
 
-        // recyclerView.setHasFixedSize(true)
-
         return root
     }
 
