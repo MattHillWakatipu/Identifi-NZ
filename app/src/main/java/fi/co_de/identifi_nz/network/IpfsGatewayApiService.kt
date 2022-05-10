@@ -30,7 +30,7 @@ private val retrofit = Retrofit.Builder()
  */
 interface IpfsGatewayApiService {
     @GET("photos")
-    suspend fun getPhotos(): String
+    suspend fun getPhotos(): List<IpfsPhoto>
 }
 
 /**
