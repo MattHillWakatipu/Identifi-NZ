@@ -13,5 +13,5 @@ class Activity(IpfsActivity: IpfsActivity) {
         "rejected" -> R.drawable.ic_activity_icon_rejected
         else -> error("incorrect icon provided")
     }
-    val string = IpfsActivity.summary
+    val summary = IpfsActivity.summary
 }

@@ -13,7 +13,7 @@ import fi.co_de.identifi_nz.data.ActivityCardAdapter.ItemViewHolder
 
 class ActivityCardAdapter(
     private val context: Context,
-    private val dataset: List<Activity>
+    private val dataset: List<Activity>?
 ) : Adapter<ItemViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -38,14 +38,16 @@ class ActivityCardAdapter(
      * Replace the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.textView.text = context.resources.getString(item.stringResourceId)
-        holder.imageView.setImageResource(item.imageResourceId)
+        val item = dataset?.get(position)
+        if (item != null) {
+            holder.textView.text = item.summary
+            holder.imageView.setImageResource(item.imageResourceId)
+        }
     }
 
     /**
      * Return the size of your dataset (invoked by the layout manager)
      */
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = dataset?.size ?: 0
 
 }
