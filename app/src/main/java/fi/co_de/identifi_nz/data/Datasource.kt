@@ -3,19 +3,6 @@ package fi.co_de.identifi_nz.data
 import fi.co_de.identifi_nz.R
 
 class Datasource {
-    fun loadRecentTransactions(): List<Activity> {
-        return listOf(
-            Activity(R.string.transaction1, R.drawable.ic_activity_icon_verified),
-            Activity(R.string.transaction2, R.drawable.ic_activity_icon_request_outgoing),
-            Activity(R.string.transaction3, R.drawable.ic_activity_icon_request_incoming),
-            Activity(R.string.transaction4, R.drawable.ic_activity_icon_rejected),
-            Activity(R.string.transaction5, R.drawable.ic_activity_icon_request_outgoing),
-            Activity(R.string.transaction6, R.drawable.ic_activity_icon_verified),
-            Activity(R.string.transaction7, R.drawable.ic_activity_icon_verified),
-            Activity(R.string.transaction8, R.drawable.ic_activity_icon_request_outgoing),
-            Activity(R.string.transaction9, R.drawable.ic_activity_icon_request_outgoing),
-        )
-    }
 
     fun loadIdentityFragments(): List<IdentityFragment> {
         return listOf(
