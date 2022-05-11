@@ -9,9 +9,11 @@ import fi.co_de.identifi_nz.data.Activity
 import fi.co_de.identifi_nz.network.IpfsApi
 import kotlinx.coroutines.launch
 
-const val TAG = "HomeViewModel"
-
 class HomeViewModel : ViewModel() {
+
+    companion object {
+        private val TAG = HomeViewModel::class.java.simpleName
+    }
 
     private val _activities = MutableLiveData<List<Activity>>()
     val activities: LiveData<List<Activity>> = _activities
