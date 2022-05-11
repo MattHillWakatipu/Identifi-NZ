@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Load transactions from datasource
+        // Load transactions from viewModel
         val recentActivityDataset = homeViewModel.activities.value
 
         // Create recyclerview adapter
