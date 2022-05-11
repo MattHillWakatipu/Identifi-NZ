@@ -20,18 +20,16 @@ class VerifyViewModel : ViewModel() {
     }
 
     /**
-     * Gets Mars photos information from the Mars API Retrofit service and updates the
-     * [IpfsPhoto] [List] [LiveData].
+     * Gets status information from the IPFS API Retrofit service.
      */
     private fun getIpfsString() {
         viewModelScope.launch {
             try {
-                val listResult = IpfsApi.retrofitService.getPageAsString()
+                val listResult = IpfsApi.retrofitService.getIpfsActivities()
                 _status.value = "Success: $listResult"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
             }
         }
     }
-
 }
