@@ -2,6 +2,7 @@ package fi.co_de.identifi_nz.data
 
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import fi.co_de.identifi_nz.R
 import fi.co_de.identifi_nz.network.json.IpfsIdentityFragment
 
@@ -28,7 +29,7 @@ class IdentityFragment(ipfsIdentityFragment: IpfsIdentityFragment) {
         else -> Log.e(TAG, "incorrect status provided")
     }
 
-    @DrawableRes
+    @StringRes
     val statusDescriptionResourceId: Int = when (ipfsIdentityFragment.status) {
         "pending" -> R.string.status_pending
         "verified" -> R.string.status_verified

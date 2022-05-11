@@ -26,13 +26,13 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 /**
- * A public interface that exposes the [getIpfsActivities] method.
+ * A public interface that exposes the [getIpfsActivities] and [getIpfsIdentityFragments] methods.
  */
 interface IpfsGatewayService {
     @GET("QmSB44zJDQ4mDY9Ks5FTeMVw7LyHJLsJUHqWieK5QLkFv5/Activities")
     suspend fun getIpfsActivities(): List<IpfsActivity>
 
-    @GET("QmbvMAcCPm9wqZA3B4mWRnDHuM2TxerjaAxn8a3TqT4oKu/IdentityFragments")
+    @GET("QmdQKGnUY3wCsw1sknzTFAyPSQo6hWohCFUHJCh8Zc9mYc/IdentityFragments")
     suspend fun getIpfsIdentityFragments(): List<IpfsIdentityFragment>
 }
 
