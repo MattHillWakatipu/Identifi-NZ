@@ -9,16 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import fi.co_de.identifi_nz.R
-import fi.co_de.identifi_nz.data.TransactionCardAdapter.ItemViewHolder
+import fi.co_de.identifi_nz.data.ActivityCardAdapter.ItemViewHolder
 
-class TransactionCardAdapter(
+class ActivityCardAdapter(
     private val context: Context,
-    private val dataset: List<Transaction>
+    private val dataset: List<Activity>
 ) : Adapter<ItemViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
-    // Each data item is just an Affirmation object.
     class ItemViewHolder(view: View) : ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.recent_activity_item_description)
         val imageView: ImageView = view.findViewById(R.id.recent_activity_item_icon)

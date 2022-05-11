@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import fi.co_de.identifi_nz.R
+import fi.co_de.identifi_nz.data.ActivityCardAdapter
 import fi.co_de.identifi_nz.data.Datasource
-import fi.co_de.identifi_nz.data.TransactionCardAdapter
 import fi.co_de.identifi_nz.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
 
         // Create recyclerview adapter
         val recyclerView = root.findViewById<RecyclerView>(R.id.recent_activity_list)
-        recyclerView.adapter = TransactionCardAdapter(requireContext(), transactionDataset)
+        recyclerView.adapter = ActivityCardAdapter(requireContext(), transactionDataset)
 
         return root
     }
