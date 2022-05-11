@@ -13,7 +13,7 @@ import fi.co_de.identifi_nz.data.IdentityFragmentCardAdapter.ItemViewHolder
 
 class IdentityFragmentCardAdapter(
     private val context: Context,
-    private val dataset: List<IdentityFragment>
+    private val dataset: List<IdentityFragment>?
 ) : Adapter<ItemViewHolder>() {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -42,18 +42,20 @@ class IdentityFragmentCardAdapter(
      * Replace the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.iconImageView.setImageResource(item.iconResourceId)
-        holder.statusImageView.setImageResource(item.statusResourceId)
-        holder.itemDescriptionTextView.text =
-            context.resources.getString(item.itemDescriptionResourceId)
-        holder.statusDescriptionTextView.text =
-            context.resources.getString(item.statusDescriptionResourceId)
+        val item = dataset?.get(position)
+
+        if (item != null) {
+            holder.iconImageView.setImageResource(item.iconResourceId)
+            holder.statusImageView.setImageResource(item.statusResourceId)
+            holder.itemDescriptionTextView.text = item.itemDescription
+            holder.statusDescriptionTextView.text =
+                context.resources.getString(item.statusDescriptionResourceId)
+        }
     }
 
     /**
      * Return the size of your dataset (invoked by the layout manager)
      */
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = dataset?.size ?: 0
 
 }
