@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import fi.co_de.identifi_nz.R
+import fi.co_de.identifi_nz.data.IdentityFragmentCardAdapter
 import fi.co_de.identifi_nz.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -21,12 +24,24 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
+        val profileViewModel =
             ViewModelProvider(this)[ProfileViewModel::class.java]
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        return binding.root
+        // Load identity fragments from viewModel
+        val identityFragmentDataset = profileViewModel.identityFragments.value
+
+        // Create recyclerview adapter
+        val recyclerView = root.findViewById<RecyclerView>(R.id.identity_fragment_list)
+        recyclerView.adapter =
+            IdentityFragmentCardAdapter(requireContext(), identityFragmentDataset)
+        // TODO: This finishes before the data is loaded, need to observe it or something?
+
+        recyclerView.setHasFixedSize(true)
+
+        return root
     }
 
     override fun onDestroyView() {

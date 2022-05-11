@@ -2,8 +2,8 @@
     <string name="app_name">Identifi-NZ</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Identifi-NZ</string>
+    <string name="nav_header_subtitle">matt.dev@co-de.fi</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -12,17 +12,6 @@
     <string name="menu_upload">Upload</string>
     <string name="menu_verify">Verify</string>
     <string name="recent_activity">Recent Activity</string>
-
-    <!--  Datasource strings  -->
-    <string name="transaction1">Verified by @Alice</string>
-    <string name="transaction2">Verification request sent</string>
-    <string name="transaction3">Request from @Alice</string>
-    <string name="transaction4">Rejected by @Bob</string>
-    <string name="transaction5">Verification request sent</string>
-    <string name="transaction6">Verified by @Alice</string>
-    <string name="transaction7">Verified by @Bob</string>
-    <string name="transaction8">Request sent to @Bob</string>
-    <string name="transaction9">Request sent to @Alice</string>
 
     <!--  Identity Fragment strings  -->
     <string name="badge">Badge</string>

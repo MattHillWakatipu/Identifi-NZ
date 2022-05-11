@@ -28,7 +28,7 @@ class VerifyFragment : Fragment()  {
         val root: View = binding.root
 
         val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
+        slideshowViewModel.status.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
