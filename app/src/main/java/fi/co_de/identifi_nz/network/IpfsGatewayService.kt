@@ -3,12 +3,10 @@ package fi.co_de.identifi_nz.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 
-private const val GATEWAY_URL = "https://ipfs.io/ipfs"
-private const val BASE_URL =
-    "https://android-kotlin-fun-mars-server.appspot.com"
+private const val BASE_URL = "https://co-de-fi.mypinata.cloud/ipfs/"
 
 /**
  * Build the Moshi object with Kotlin adapter factory that Retrofit will be using.
@@ -21,23 +19,23 @@ private val moshi = Moshi.Builder()
  * The Retrofit object with the Moshi converter.
  */
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addConverterFactory(ScalarsConverterFactory.create())
     .baseUrl(BASE_URL)
     .build()
 
 /**
- * A public interface that exposes the [getPhotos] method.
+ * A public interface that exposes the [getPageAsString] method.
  */
-interface MarsApiService {
-    @GET("photos")
-    suspend fun getPhotos(): List<IpfsPhoto>
+interface IpfsGatewayService {
+    @GET("QmTrLTCQPtfzVzh1fW8QnMRKenMtFXXbaqBMdQ5xDmnDqU")
+    suspend fun getPageAsString(): String
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service.
  */
-object MarsApi {
-    val retrofitService: MarsApiService by lazy {
-        retrofit.create(MarsApiService::class.java)
+object IpfsApi {
+    val retrofitService: IpfsGatewayService by lazy {
+        retrofit.create(IpfsGatewayService::class.java)
     }
 }

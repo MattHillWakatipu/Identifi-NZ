@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fi.co_de.identifi_nz.network.MarsApi
+import fi.co_de.identifi_nz.network.IpfsApi
 import kotlinx.coroutines.launch
 
 class VerifyViewModel : ViewModel() {
@@ -16,18 +16,18 @@ class VerifyViewModel : ViewModel() {
      * Call getIpfsPhoto() on init so we can display status immediately.
      */
     init {
-        getIpfsPhoto()
+        getIpfsString()
     }
 
     /**
      * Gets Mars photos information from the Mars API Retrofit service and updates the
      * [IpfsPhoto] [List] [LiveData].
      */
-    private fun getIpfsPhoto() {
+    private fun getIpfsString() {
         viewModelScope.launch {
             try {
-                val listResult = MarsApi.retrofitService.getPhotos()
-                _status.value = "Success: ${listResult.size} Mars photos retrieved"
+                val listResult = IpfsApi.retrofitService.getPageAsString()
+                _status.value = "Success: $listResult"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
             }
