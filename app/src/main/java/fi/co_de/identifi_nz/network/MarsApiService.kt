@@ -28,7 +28,7 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public interface that exposes the [getPhotos] method.
  */
-interface IpfsGatewayApiService {
+interface MarsApiService {
     @GET("photos")
     suspend fun getPhotos(): List<IpfsPhoto>
 }
@@ -36,8 +36,8 @@ interface IpfsGatewayApiService {
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service.
  */
-object IpfsApi {
-    val retrofitService: IpfsGatewayApiService by lazy {
-        retrofit.create(IpfsGatewayApiService::class.java)
+object MarsApi {
+    val retrofitService: MarsApiService by lazy {
+        retrofit.create(MarsApiService::class.java)
     }
 }
