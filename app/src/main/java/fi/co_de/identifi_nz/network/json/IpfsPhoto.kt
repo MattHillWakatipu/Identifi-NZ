@@ -1,4 +1,4 @@
-package fi.co_de.identifi_nz.network
+package fi.co_de.identifi_nz.network.json
 
 import com.squareup.moshi.Json
 
