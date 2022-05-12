@@ -7,11 +7,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--  Menu strings  -->
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_upload">Upload</string>
     <string name="menu_verify">Verify</string>
-    <string name="recent_activity">Recent Activity</string>
 
     <!--  Identity Fragment strings  -->
     <string name="badge">Badge</string>
@@ -22,5 +22,12 @@
     <string name="status_pending">Awaiting Verification</string>
     <string name="status_verified">Fully Verified</string>
 
+    <!--  Camera action strings  -->
+    <string name="take_photo">Take Photo</string>
+    <string name="start_capture">Start Capture</string>
+    <string name="stop_capture">Stop Capture</string>
+
+    <!--  Misc strings  -->
     <string name="profile_name">Matthew</string>
+    <string name="recent_activity">Recent Activity</string>
 </resources>
