@@ -1,21 +1,33 @@
 package fi.co_de.identifi_nz.ui.upload
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.camera.core.ImageCapture
+import androidx.camera.video.Recorder
+import androidx.camera.video.Recording
+import androidx.camera.video.VideoCapture
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
+import java.util.concurrent.ExecutorService
 
 class UploadFragment : Fragment() {
 
     private var _binding: FragmentUploadBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private var imageCapture: ImageCapture? = null
+    private var videoCapture: VideoCapture<Recorder>? = null
+    private var recording: Recording? = null
+
+    private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +47,26 @@ class UploadFragment : Fragment() {
         return root
     }
 
+    private fun takePhoto() {
+        TODO()
+    }
+
+    private fun captureVideo() {
+        TODO()
+    }
+
+    private fun startCamera() {
+        TODO()
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+            requireContext(), it) == PackageManager.PERMISSION_GRANTED
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        cameraExecutor.shutdown()
         _binding = null
     }
 
