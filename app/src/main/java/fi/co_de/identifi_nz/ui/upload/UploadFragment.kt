@@ -2,13 +2,13 @@ package fi.co_de.identifi_nz.ui.upload
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -16,12 +16,12 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.Recorder
 import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
 import java.util.concurrent.ExecutorService
+
 
 class UploadFragment : Fragment() {
 
@@ -45,15 +45,11 @@ class UploadFragment : Fragment() {
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Request camera permissions
-        if (allPermissionsGranted()) {
+        // Check if we have permission to use camera, if not request permission
+        if (checkPermission()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                REQUIRED_PERMISSIONS,
-                REQUEST_CODE_PERMISSIONS
-            )
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
         // Set up click listeners
@@ -61,6 +57,19 @@ class UploadFragment : Fragment() {
         binding.videoCaptureButton.setOnClickListener { captureVideo() }
 
         return root
+    }
+
+
+    /**
+     * Check if we have the required permissions to continue use of the app.
+     *
+     * @return True if we have the permissions, otherwise False.
+     */
+    private fun checkPermission(): Boolean {
+        return PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(
+            requireContext(),
+            REQUIRED_PERMISSION
+        )
     }
 
     private fun takePhoto() {
@@ -71,6 +80,9 @@ class UploadFragment : Fragment() {
         TODO()
     }
 
+    /**
+     * TODO
+     */
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
@@ -98,33 +110,30 @@ class UploadFragment : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray
-    ) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
+
+    /**
+     *  Register the permissions callback, which handles the user's response to the
+     *  system permissions dialog. Save the return value, an instance of ActivityResultLauncher.
+     */
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
                 startCamera()
             } else {
+                // TODO("this should be a dialog instead of a toast")
                 Toast.makeText(
-                    requireContext(),
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT
+                    context,
+                    "Camera permissions are required to upload to Identifi-NZ",
+                    Toast.LENGTH_LONG
                 ).show()
-                TODO("Will crash after this due to cameraExecutor not being initialised")
             }
         }
-    }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            requireContext(),
-            it
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-
+    /**
+     * Destroy the view, call the shutdown method on the [cameraExecutor] then clear [_binding].
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         cameraExecutor.shutdown()
@@ -132,18 +141,9 @@ class UploadFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "CameraXFragment"
+        private const val TAG = "UploadFragment"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS =
-            mutableListOf(
-                Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO
-            ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-            }.toTypedArray()
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 
 }
