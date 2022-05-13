@@ -1,8 +1,12 @@
 package fi.co_de.identifi_nz.ui.upload
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.Recorder
@@ -20,7 +25,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
+import java.util.*
 import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 
 class UploadFragment : Fragment() {
@@ -56,6 +63,8 @@ class UploadFragment : Fragment() {
         binding.imageCaptureButton.setOnClickListener { takePhoto() }
         binding.videoCaptureButton.setOnClickListener { captureVideo() }
 
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
         return root
     }
 
@@ -72,6 +81,9 @@ class UploadFragment : Fragment() {
         )
     }
 
+    /**
+     * TODO
+     */
     private fun takePhoto() {
         TODO()
     }
@@ -95,6 +107,8 @@ class UploadFragment : Fragment() {
                 .build()
                 .also { it.setSurfaceProvider(binding.viewFinder.surfaceProvider) }
 
+            imageCapture = ImageCapture.Builder().build()
+
             // Select back camera as default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
@@ -103,7 +117,12 @@ class UploadFragment : Fragment() {
                 cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview)
+                cameraProvider.bindToLifecycle(
+                    this,
+                    cameraSelector,
+                    preview,
+                    imageCapture
+                )
             } catch (e: Exception) {
                 Log.e(TAG, "Use case binding failed", e)
             }
