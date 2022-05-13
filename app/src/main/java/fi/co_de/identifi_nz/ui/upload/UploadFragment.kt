@@ -85,7 +85,56 @@ class UploadFragment : Fragment() {
      * TODO
      */
     private fun takePhoto() {
-        TODO()
+        Log.v(TAG, "takePhoto called")
+        // Get a stable reference of the modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+        Log.v(TAG, "create media store entry")
+        // Create time stamped name and MediaStore entry.
+        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
+            .format(System.currentTimeMillis())
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                Log.v(TAG, "Check")
+                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
+            }
+        }
+
+        Log.v(TAG, "setting output options")
+        // Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions
+            .Builder(
+                requireActivity().contentResolver,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues
+            )
+            .build()
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+        Log.v(TAG, "taking picture")
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(requireContext()),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val message = "Photo capture succeeded: ${output.savedUri}"
+                    Toast.makeText(
+                        requireActivity().baseContext,
+                        message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(TAG, message)
+                }
+            }
+        )
+        Log.v(TAG, "takePhoto ending")
     }
 
     private fun captureVideo() {
