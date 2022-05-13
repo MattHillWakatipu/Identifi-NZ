@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -53,10 +53,10 @@ class UploadFragment : Fragment() {
         val root: View = binding.root
 
         // Check if we have permission to use camera, if not request permission
-        if (checkPermission()) {
+        if (allPermissionsGranted()) {
             startCamera()
         } else {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+            requestPermissionLauncher.launch(REQUIRED_PERMISSIONS)
         }
 
         // Set up click listeners
@@ -74,11 +74,10 @@ class UploadFragment : Fragment() {
      *
      * @return True if we have the permissions, otherwise False.
      */
-    private fun checkPermission(): Boolean {
-        return PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(
-            requireContext(),
-            REQUIRED_PERMISSION
-        )
+    private fun allPermissionsGranted(): Boolean = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+            requireContext(), it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     /**
@@ -185,9 +184,12 @@ class UploadFragment : Fragment() {
      */
     private val requestPermissionLauncher =
         registerForActivityResult(
-            RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
+            RequestMultiplePermissions()
+        ) { permissions ->
+            val granted = permissions.entries.all {
+                it.value == true
+            }
+            if (granted) {
                 startCamera()
             } else {
                 // TODO("this should be a dialog instead of a toast")
@@ -211,7 +213,13 @@ class UploadFragment : Fragment() {
     companion object {
         private const val TAG = "UploadFragment"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+        private val REQUIRED_PERMISSIONS = mutableListOf(
+            Manifest.permission.CAMERA,
+        ).apply {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }.toTypedArray()
     }
 
 }
