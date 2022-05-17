@@ -12,6 +12,8 @@ class VerifyViewModel : ViewModel() {
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
+    private val testingURL: String = "Qmcdq1igg9ivZQBbhx6yLfQ12sSWiT3jjJixL4yxfmALpZ"
+
     /**
      * Call getIpfsPhoto() on init so we can display status immediately.
      */
@@ -25,7 +27,7 @@ class VerifyViewModel : ViewModel() {
     private fun getIpfsString() {
         viewModelScope.launch {
             try {
-                val listResult = IpfsApi.retrofitService.getIpfsActivities()
+                val listResult = IpfsApi.retrofitService.getIdentityFragment(testingURL)
                 _status.value = "Success: $listResult"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
