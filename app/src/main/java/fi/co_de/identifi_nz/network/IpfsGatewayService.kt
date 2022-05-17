@@ -6,9 +6,7 @@ import fi.co_de.identifi_nz.network.json.IpfsActivity
 import fi.co_de.identifi_nz.network.json.IpfsIdentityFragment
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Url
+import retrofit2.http.*
 
 private const val BASE_URL = "https://co-de-fi.mypinata.cloud/ipfs/"
 
@@ -40,8 +38,12 @@ interface IpfsGatewayService {
     @GET
     suspend fun getIdentityFragment(@Url url: String): IpfsIdentityFragment
 
-    @POST("QmdQKGnUY3wCsw1sknzTFAyPSQo6hWohCFUHJCh8Zc9mYc")
-    suspend fun uploadIdentityFragment()
+    @POST
+    @FormUrlEncoded
+    suspend fun uploadIdentityFragment(
+        @Url url: String,
+        @Field("identityFragment") ipfsIdentityFragment: IpfsIdentityFragment
+    ): String
 }
 
 /**
