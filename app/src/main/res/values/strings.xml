@@ -7,13 +7,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!--  Menu strings  -->
+    <!--  Menu  -->
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_upload">Upload</string>
     <string name="menu_verify">Verify</string>
 
-    <!--  Identity Fragment strings  -->
+    <!--  Identity Fragments  -->
     <string name="badge">Badge</string>
     <string name="bank_account">Bank Account</string>
     <string name="document">Document</string>
@@ -22,12 +22,15 @@
     <string name="status_pending">Awaiting Verification</string>
     <string name="status_verified">Fully Verified</string>
 
-    <!--  Camera action strings  -->
-    <string name="take_photo">Take Photo</string>
-    <string name="start_capture">Start Capture</string>
-    <string name="stop_capture">Stop Capture</string>
+    <!--  Upload Dialog  -->
+    <string name="upload_dialog_title">Upload Identity Fragment</string>
+    <string name="upload_dialog_supporting_text">Upload an identity fragment to IPFS</string>
+    <string name="upload_dialog_cancel">Cancel</string>
+    <string name="upload_dialog_decline">Decline</string>
+    <string name="upload_dialog_send">Send</string>
 
     <!--  Misc strings  -->
     <string name="profile_name">Matthew</string>
     <string name="recent_activity">Recent Activity</string>
+    <string name="take_photo">Take Photo</string>
 </resources>

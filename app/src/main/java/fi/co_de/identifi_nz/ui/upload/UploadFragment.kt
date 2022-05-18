@@ -131,6 +131,10 @@ class UploadFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).show()
                     Log.d(TAG, message)
+
+                    val dialog = UploadDialogFragment()
+                    dialog.show(requireActivity().supportFragmentManager, "UploadDialogFragment")
+
                 }
             }
         )
