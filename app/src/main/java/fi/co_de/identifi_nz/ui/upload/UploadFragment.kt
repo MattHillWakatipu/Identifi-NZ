@@ -24,6 +24,8 @@ import androidx.camera.video.VideoCapture
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import fi.co_de.identifi_nz.R
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -61,7 +63,6 @@ class UploadFragment : Fragment() {
 
         // Set up click listeners
         binding.imageCaptureButton.setOnClickListener { takePhoto() }
-        binding.videoCaptureButton.setOnClickListener { captureVideo() }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -124,10 +125,10 @@ class UploadFragment : Fragment() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val message = "Photo capture succeeded: ${output.savedUri}"
-                    Toast.makeText(
-                        requireActivity().baseContext,
+                    Snackbar.make(
+                        requireView().findViewById(R.id.coordinator_layout),
                         message,
-                        Toast.LENGTH_SHORT
+                        Snackbar.LENGTH_LONG
                     ).show()
                     Log.d(TAG, message)
                 }
