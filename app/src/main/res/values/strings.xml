@@ -24,7 +24,10 @@
 
     <!--  Upload Dialog  -->
     <string name="upload_dialog_title">Upload Identity Fragment</string>
-    <string name="upload_dialog_supporting_text">Upload an identity fragment to IPFS</string>
+    <string name="upload_dialog_supporting_text">Uploading an identity fragment to IPFS requires additional information,supplying accurate information is important to ensuring others will verify your identity fragments.</string>
+    <string name="upload_dialog_item_image_text">Photo to upload to IPFS</string>
+    <string name="upload_dialog_item_type">Item Type</string>
+    <string name="upload_dialog_item_description">Item Description</string>
     <string name="upload_dialog_cancel">Cancel</string>
     <string name="upload_dialog_decline">Decline</string>
     <string name="upload_dialog_send">Send</string>

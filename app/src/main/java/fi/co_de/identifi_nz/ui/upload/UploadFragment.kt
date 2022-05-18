@@ -18,9 +18,6 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -38,8 +35,6 @@ class UploadFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var imageCapture: ImageCapture? = null
-    private var videoCapture: VideoCapture<Recorder>? = null
-    private var recording: Recording? = null
 
     private lateinit var cameraExecutor: ExecutorService
 
@@ -132,17 +127,13 @@ class UploadFragment : Fragment() {
                     ).show()
                     Log.d(TAG, message)
 
+                    // Create Dialog fragment to send image to IPFS
                     val dialog = UploadDialogFragment()
-                    dialog.show(requireActivity().supportFragmentManager, "UploadDialogFragment")
-
+                    dialog.showDialog(requireActivity().supportFragmentManager)
                 }
             }
         )
         Log.v(TAG, "takePhoto ending")
-    }
-
-    private fun captureVideo() {
-        TODO()
     }
 
     /**
