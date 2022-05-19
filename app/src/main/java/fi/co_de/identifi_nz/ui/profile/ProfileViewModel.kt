@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fi.co_de.identifi_nz.data.IdentityFragment
 import fi.co_de.identifi_nz.network.IpfsApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.http.Url
 
 class ProfileViewModel : ViewModel() {
 
@@ -23,6 +25,7 @@ class ProfileViewModel : ViewModel() {
      */
     init {
         getIdentityFragmentsFromIpfs()
+        getIdentityFragment("Qmcdq1igg9ivZQBbhx6yLfQ12sSWiT3jjJixL4yxfmALpZ")
     }
 
     /**
@@ -41,6 +44,35 @@ class ProfileViewModel : ViewModel() {
                     listIdentityFragments.add(IdentityFragment(ipfsActivity))
                 }
                 _identityFragments.value = listIdentityFragments
+
+            } catch (e: Exception) {
+                Log.e(TAG, "Failure: ${e.message}")
+            }
+        }
+    }
+
+    private fun getIdentityFragment(@Url url: String) {
+        viewModelScope.launch {
+            try {
+                // FIXME this is a complete hack, do this properly after testing
+                delay(2000)
+
+                val ipfsIdentityFragment = IpfsApi.retrofitService.getIdentityFragment(url)
+                Log.v(TAG, "Success: $ipfsIdentityFragment")
+
+                // Convert to Identity Fragment
+                val identityFragment = IdentityFragment(ipfsIdentityFragment)
+
+                val oldList: List<IdentityFragment>? = _identityFragments.value
+                if (oldList == null) {
+                    // Create a list of the identity fragment and set it
+                    _identityFragments.value = listOf(identityFragment)
+                } else {
+                    // Create a mutable list of the existing identity fragments and add to it
+                    val mutableList = oldList.toMutableList()
+                    mutableList.add(identityFragment)
+                    _identityFragments.value = mutableList
+                }
 
             } catch (e: Exception) {
                 Log.e(TAG, "Failure: ${e.message}")
