@@ -1,12 +1,10 @@
 package fi.co_de.identifi_nz.ui.upload
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.pm.PackageManager
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +23,6 @@ import com.google.android.material.snackbar.Snackbar
 import fi.co_de.identifi_nz.R
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
 import java.io.File
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -85,28 +82,15 @@ class UploadFragment : Fragment() {
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
-        Log.v(TAG, "create media store entry")
-        // Create time stamped name and MediaStore entry.
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-            .format(System.currentTimeMillis())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                Log.v(TAG, "Check")
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/Identifi-NZ")
-            }
-        }
-
         Log.v(TAG, "setting output options")
-        // Create output options object which contains file + metadata
+        // Create output options object which contains file
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(
-                requireActivity().contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues
-            )
-            .build()
+                File(
+                    Environment.getExternalStorageDirectory().path +
+                            "/Pictures/upload.jpg"
+                )
+            ).build()
 
         // Set up image capture listener, which is triggered after photo has
         // been taken
@@ -120,18 +104,24 @@ class UploadFragment : Fragment() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+
+                    // Save the photo uri in the view model
+                    uploadViewModel.setPhotoUri(output.savedUri)
+
+                    // Construct debug message
                     val message = "Photo capture succeeded: ${output.savedUri}"
+                    Log.d(TAG, message)
+
+                    // Show message as snackbar
                     Snackbar.make(
                         requireView().findViewById(R.id.coordinator_layout),
                         message,
                         Snackbar.LENGTH_LONG
                     ).show()
-                    Log.d(TAG, message)
 
                     // Create Dialog fragment to send image to IPFS
                     val dialog = UploadDialogFragment()
                     dialog.showDialog(requireActivity().supportFragmentManager)
-                    dialog.setImage(output.savedUri)
                 }
             }
         )
