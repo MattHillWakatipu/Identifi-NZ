@@ -55,4 +55,6 @@
     <color name="md_theme_dark_inversePrimary">#006B59</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_primaryInverse">#006B59</color>
+    <color name="color_verified_green">#32FCA7</color>
+    <color name="color_pending_orange">#F29339</color>
 </resources>
