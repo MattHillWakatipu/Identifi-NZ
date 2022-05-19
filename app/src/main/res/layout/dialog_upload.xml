@@ -5,7 +5,8 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="?attr/colorSurface"
+    tools:context=".ui.upload.UploadDialogFragment">
 
     <TextView
         android:id="@+id/upload_dialog_title"
@@ -52,7 +53,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/upload_dialog_item_type"
         style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
@@ -64,8 +65,9 @@
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none" />
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:simpleItems="@array/simple_items" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,8 +83,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/upload_dialog_item_description"
-            android:textColorHint="#546E7A" />
+            android:hint="@string/upload_dialog_item_description" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

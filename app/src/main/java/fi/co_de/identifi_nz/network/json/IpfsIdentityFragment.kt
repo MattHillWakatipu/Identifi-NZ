@@ -7,4 +7,5 @@ class IpfsIdentityFragment(
     @Json(name = "icon") val icon: String,
     @Json(name = "status") val status: String,
     @Json(name = "item_description") val item_description: String,
+    //TODO add the image file/link to file as well
 )

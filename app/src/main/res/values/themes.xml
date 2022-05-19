@@ -33,6 +33,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomDialog" parent="@android:style/Theme.Holo.Light" >
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <style name="Theme.IdentifiNZ.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.IdentifiNZ.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
