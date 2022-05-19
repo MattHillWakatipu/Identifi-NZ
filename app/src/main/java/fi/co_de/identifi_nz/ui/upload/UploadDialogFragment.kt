@@ -45,6 +45,7 @@ class UploadDialogFragment : DialogFragment() {
 
         binding.uploadDialogCancel.setOnClickListener { dismiss() }
         binding.uploadDialogSend.setOnClickListener { uploadDataToIpfs() }
+        setImage()
 
         return root
     }
@@ -63,16 +64,17 @@ class UploadDialogFragment : DialogFragment() {
             .commit()
     }
 
-    fun setImage(savedUri: Uri?) {
+    /**
+     * Set the item image based on the Uri in the view model.
+     */
+    private fun setImage() {
         Log.v(TAG, "In set image")
 
-        Log.v(TAG, savedUri.toString())
-        Log.v(TAG, savedUri?.path.toString())
+        // Get Uri from view model and convert to file
+        val savedUri = uploadViewModel.photoUri.value
+        val imgFile = savedUri?.toFile()
 
-        var imgFile = savedUri?.path?.let { File(it) }
-
-        imgFile = File("/sdcard/Pictures/1652413318817.jpg")
-
+        // If image file is valid, set it as the itemImage
         if (imgFile != null && imgFile.exists()) {
             val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
             binding.itemImage.setImageBitmap(bitmap)
