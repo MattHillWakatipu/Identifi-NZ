@@ -1,6 +1,9 @@
 package fi.co_de.identifi_nz.ui.upload
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +16,9 @@ import fi.co_de.identifi_nz.databinding.DialogUploadBinding
 import fi.co_de.identifi_nz.network.IpfsApi
 import fi.co_de.identifi_nz.network.json.IpfsIdentityFragment
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.*
+
 
 class UploadDialogFragment : DialogFragment() {
 
@@ -54,6 +59,22 @@ class UploadDialogFragment : DialogFragment() {
             .add(android.R.id.content, newFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    fun setImage(savedUri: Uri?) {
+        Log.v(TAG, "In set image")
+
+        Log.v(TAG, savedUri.toString())
+        Log.v(TAG, savedUri?.path.toString())
+
+        var imgFile = savedUri?.path?.let { File(it) }
+
+        imgFile = File("/sdcard/Pictures/1652413318817.jpg")
+
+        if (imgFile != null && imgFile.exists()) {
+            val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+            binding.itemImage.setImageBitmap(bitmap)
+        }
     }
 
     /**
@@ -104,5 +125,9 @@ class UploadDialogFragment : DialogFragment() {
             status = "pending",
             item_description = itemDescription
         )
+    }
+
+    companion object {
+        private const val TAG = "UploadDialogFragment"
     }
 }

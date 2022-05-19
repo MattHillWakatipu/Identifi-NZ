@@ -130,6 +130,7 @@ class UploadFragment : Fragment() {
                     // Create Dialog fragment to send image to IPFS
                     val dialog = UploadDialogFragment()
                     dialog.showDialog(requireActivity().supportFragmentManager)
+                    dialog.setImage(output.savedUri)
                 }
             }
         )
