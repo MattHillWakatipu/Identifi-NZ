@@ -1,22 +1,22 @@
 package fi.co_de.identifi_nz.ui.upload
 
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toFile
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import fi.co_de.identifi_nz.databinding.DialogUploadBinding
 import fi.co_de.identifi_nz.network.IpfsApi
 import fi.co_de.identifi_nz.network.json.IpfsIdentityFragment
 import kotlinx.coroutines.launch
-import java.io.File
 import java.util.*
 
 
@@ -24,6 +24,8 @@ class UploadDialogFragment : DialogFragment() {
 
     private var _binding: DialogUploadBinding? = null
     private val binding get() = _binding!!
+
+    private val uploadViewModel : UploadViewModel by activityViewModels()
 
     // This is empty as it utilises the base URL
     private val uploadUrl: String = ""

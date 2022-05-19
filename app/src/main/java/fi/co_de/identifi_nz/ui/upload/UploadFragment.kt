@@ -20,10 +20,11 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 import fi.co_de.identifi_nz.R
 import fi.co_de.identifi_nz.databinding.FragmentUploadBinding
+import java.io.File
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -34,6 +35,8 @@ class UploadFragment : Fragment() {
     private var _binding: FragmentUploadBinding? = null
     private val binding get() = _binding!!
 
+    private val uploadViewModel: UploadViewModel by activityViewModels()
+
     private var imageCapture: ImageCapture? = null
 
     private lateinit var cameraExecutor: ExecutorService
@@ -43,8 +46,6 @@ class UploadFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val uploadViewModel =
-            ViewModelProvider(this)[UploadViewModel::class.java]
 
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root
